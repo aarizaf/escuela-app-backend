@@ -1,0 +1,19 @@
+# PostgreSQL LOCAL para desarrollo y pruebas. No toca Supabase.
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: escuela
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d escuela"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  pgdata:
